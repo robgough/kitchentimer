@@ -84,5 +84,34 @@ namespace KitchenTimer.Data
             return mealItem.ToList();
         }
 
+        //write
+
+        public void AddMealItem(MealItem mealItem)
+        {
+            int newId = new_record_id();
+
+            XElement mealIn = new XElement("MealItem",
+                 new XElement("Id", newId),
+                 new XElement("Name", mealItem.Name),
+                 new XElement("CookingTime", mealItem.CookingTime),
+                 new XElement("StandingTime", mealItem.StandingTime),
+                 new XElement("Notes", mealItem.Notes),
+                 new XElement("Saved", mealItem.Saved));
+            doc.Root.Add(mealIn);
+
+            isfStream.Close();
+            isfData.DeleteFile("MealItems.xml");
+            isfStream = new IsolatedStorageFileStream("MealItems.xml", System.IO.FileMode.Create, isfData);
+            doc.Save(isfStream);
+            isfStream.Close();
+        }
+
+        private int new_record_id()
+        {
+            var mealItems = from m in doc.Descendants("MealItem")
+                        select (int)m.Attribute("Id");
+            return mealItems.Last();
+
+        }
     }
 }

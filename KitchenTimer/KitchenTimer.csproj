@@ -78,6 +78,7 @@
     <Compile Include="Model\Meal.cs" />
     <Compile Include="Model\MealItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MealViewModel.cs" />
     <Compile Include="ViewModels\MealItemViewModel.cs" />
   </ItemGroup>

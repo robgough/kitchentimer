@@ -15,21 +15,20 @@ namespace KitchenTimer.ViewModels
 {
     public class MealItemViewModel : INotifyPropertyChanged
     {
-        public MealItem _mealItem = null;
+        public MealItem _mealItem;
 
-        public MealItemViewModel()
+        //public MealItemViewModel()
+        //{
+        //    _mealItem = new MealItem();
+        //}
+
+        public MealItemViewModel(MealItem item)
         {
-            _mealItem = new MealItem();
+            _mealItem = item;
         }
 
         public void LoadData()
         {
-            _mealItem.Id = 1;
-            _mealItem.Name = "Spaghetti";
-            _mealItem.Notes = "This needs to be strained afterwards, will take about a minute.";
-            _mealItem.StandingTime = new TimeSpan(0, 1, 0);
-            _mealItem.CookingTime = new TimeSpan(0, 12, 0);
-            _mealItem.Saved = true;
         }
 
         public int Id
@@ -94,6 +93,7 @@ namespace KitchenTimer.ViewModels
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+        private MealItem item;
         private void NotifyPropertyChanged(String propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;

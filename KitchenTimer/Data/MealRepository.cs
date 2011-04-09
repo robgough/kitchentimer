@@ -33,6 +33,8 @@ namespace KitchenTimer.Data
             }
         }
 
+        //read
+
         public Meal GetById(int id)
         {
             var meal = from m in doc.Descendants("Meal")
@@ -93,6 +95,50 @@ namespace KitchenTimer.Data
                             Notes = (string)m.Attribute("Notes")
                         };
             return meals.Take(x).ToList();
+        }
+
+        //write
+
+        public int AddMeal(Meal meal)
+        {
+            int newId = new_record_id();
+
+            XElement mealIn = new XElement("Meal",
+                 new XElement("Id", newId),
+                 new XElement("Name", meal.Name),
+                 new XElement("Favourite", meal.Favourite),
+                 new XElement("LastCooked", null),
+                 new XElement("Notes", meal.Notes),
+                 new XElement("Items", new List<int>()));
+            doc.Root.Add(mealIn);
+
+            isfStream.Close();
+            isfData.DeleteFile("Meals.xml");
+            isfStream = new IsolatedStorageFileStream("Meals.xml", System.IO.FileMode.Create, isfData);
+            doc.Save(isfStream);
+            isfStream.Close();
+
+            return newId;
+        }
+
+        private int new_record_id()
+        {
+            var meals = from m in doc.Descendants("Meal")
+                        select (int)m.Attribute("Id");
+            return meals.Last();
+        
+        }
+
+        public void UpdateMeal(Meal meal)
+        {
+            doc.Descendants("Meal").Where(x => (int)x.Attribute("Id") == meal.Id).Single().SetAttributeValue("Favourite", meal.Favourite);
+            doc.Descendants("Meal").Where(x => (int)x.Attribute("Id") == meal.Id).Single().SetAttributeValue("Items", meal.Items);
+            doc.Descendants("Meal").Where(x => (int)x.Attribute("Id") == meal.Id).Single().SetAttributeValue("Notes", meal.Notes);
+            isfStream.Close();
+            isfData.DeleteFile("Meals.xml");
+            isfStream = new IsolatedStorageFileStream("Meals.xml", System.IO.FileMode.Create, isfData);
+            doc.Save(isfStream);
+            isfStream.Close();
         }
     }
 }
