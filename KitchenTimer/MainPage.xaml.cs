@@ -20,5 +20,10 @@ namespace KitchenTimer
         {
             InitializeComponent();
         }
+
+        private void textNew_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Hello Rob");
+        }
     }
 }
