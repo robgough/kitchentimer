@@ -17,11 +17,19 @@ namespace KitchenTimer.ViewModels
         private DateTime _finish;
         private int _currentMealId;
 
+        public bool IsDataLoaded
+        {
+            get;
+            private set;
+        }
+
         public void LoadData()
         {
             // remove the following line
             _currentMealId = 1;
             _finish = DateTime.Now.AddHours(1);
+
+            IsDataLoaded = true;
         }
 
         public DateTime Finish
