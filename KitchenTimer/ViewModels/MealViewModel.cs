@@ -20,6 +20,12 @@ namespace KitchenTimer.ViewModels
 
         public MealViewModel()
         {
+            _meal = new Meal();
+            //_meal.Id = 1;
+            //_meal.Favourite = true;
+            //_meal.LastCooked = DateTime.Now.AddDays(-7);
+            //_meal.Name = "Spaghetti Bolegnaise";
+
             MealItems = new ObservableCollection<MealItemViewModel>();
         }
         
@@ -35,7 +41,7 @@ namespace KitchenTimer.ViewModels
             // get meal
             // foreach mealitem id in meal.mealitems
             // grab and populate MealItems
-            _meal = new Meal();
+            //_meal = new Meal();
             _meal.Id = 1;
             _meal.Favourite = true;
             _meal.LastCooked = DateTime.Now.AddDays(-7);

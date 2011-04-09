@@ -17,9 +17,13 @@ namespace KitchenTimer.ViewModels
     {
         public MealItem _mealItem = null;
 
-        public void LoadData()
+        public MealItemViewModel()
         {
             _mealItem = new MealItem();
+        }
+
+        public void LoadData()
+        {
             _mealItem.Id = 1;
             _mealItem.Name = "Spaghetti";
             _mealItem.Notes = "This needs to be strained afterwards, will take about a minute.";

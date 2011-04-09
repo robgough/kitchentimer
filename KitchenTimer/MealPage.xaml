@@ -7,7 +7,7 @@
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="696"
-    d:DataContext="SampleData/MealViewModelSampleData.xml"
+    d:DataContext="{d:DesignData SampleData/MealViewModelSampleData.xml}"
 	x:Class="KitchenTimer.MealPage"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
 	FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -20,7 +20,7 @@
 		<!--Pivot Control-->
 		<controls:Pivot Title="KITCHEN TIMER" >
 			<!--Pivot item one-->
-			<controls:PivotItem Header="mealName" >
+			<controls:PivotItem Header="{Binding Name}" >
 				<Grid>
 					<ScrollViewer Margin="8">
 						<ListBox HorizontalAlignment="Left" VerticalAlignment="Top"
