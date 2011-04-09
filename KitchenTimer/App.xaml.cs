@@ -12,11 +12,26 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using KitchenTimer.ViewModels;
 
 namespace KitchenTimer
 {
     public partial class App : Application
     {
+        private static MealViewModel mealViewModel = null;
+
+        public static MealViewModel MealViewModel
+        {
+            get
+            {
+                // Delay creation of the view model until necessary
+                if (mealViewModel == null)
+                    mealViewModel = new MealViewModel();
+
+                return mealViewModel;
+            }
+        }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>

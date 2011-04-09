@@ -18,6 +18,17 @@ namespace KitchenTimer
         public MealPage()
         {
             InitializeComponent();
+
+            DataContext = App.MealViewModel;
+            this.Loaded += new RoutedEventHandler(MealPage_Loaded);
+        }
+
+        private void MealPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (!App.MealViewModel.IsDataLoaded)
+            {
+                App.MealViewModel.LoadData();
+            }
         }
     }
 }
