@@ -9,17 +9,17 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
-using Model;
+using KitchenTimer.Model;
 
 namespace KitchenTimer.ViewModels
 {
     public class MealItemViewModel : INotifyPropertyChanged
     {
-        public Timer _mealItem = null;
+        public MealItem _mealItem = null;
 
         public void LoadData()
         {
-            _mealItem = new Timer();
+            _mealItem = new MealItem();
             _mealItem.Id = 1;
             _mealItem.Name = "Spaghetti";
             _mealItem.Notes = "This needs to be strained afterwards, will take about a minute.";

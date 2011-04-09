@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using Model;
+using KitchenTimer.Model;
 
 namespace KitchenTimer.ViewModels
 {
