@@ -10,9 +10,9 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 
-namespace Model
+namespace KitchenTimer.Model
 {
-    public class Timer
+    public class MealItem
     {
         public int Id;
 
@@ -25,7 +25,5 @@ namespace Model
         public string Notes;
 
         public bool Saved;
-
-        public List<Meal> Meals;
     }
 }
