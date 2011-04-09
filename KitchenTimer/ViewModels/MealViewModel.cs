@@ -10,7 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using Model;
+using KitchenTimer.Model;
 
 namespace KitchenTimer.ViewModels
 {
@@ -21,6 +21,12 @@ namespace KitchenTimer.ViewModels
         public MealViewModel()
         {
             MealItems = new ObservableCollection<MealItemViewModel>();
+        }
+        
+        public bool IsDataLoaded
+        {
+            get;
+            private set;
         }
 
         public void LoadData()
@@ -46,7 +52,8 @@ namespace KitchenTimer.ViewModels
                 mealItem.CookingTime = TimeSpan.FromMinutes(12);
                 MealItems.Add(mealItem);
             }
-            
+
+            IsDataLoaded = true;
         }
 
         public int MealID
