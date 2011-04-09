@@ -66,10 +66,16 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="MealPage.xaml.cs">
       <DependentUpon>MealPage.xaml</DependentUpon>
     </Compile>
+=======
+    <Compile Include="Model\Meal.cs" />
+    <Compile Include="Model\Timer.cs" />
+>>>>>>> 044edd026bd438786250cea507303626182c056d
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\MealViewModel.cs" />
     <Compile Include="ViewModels\MealItemViewModel.cs" />
   </ItemGroup>
@@ -101,7 +107,9 @@
     <Content Include="SampleData\MealViewModelSampleData.xml" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
