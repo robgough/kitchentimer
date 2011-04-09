@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Model
+namespace KitchenTimer.Model
 {
     public class Meal
     {
@@ -23,6 +23,8 @@ namespace Model
 
         public bool Favourite;
 
-        public List<Timer> Timers;
+        public string Notes;
+
+        public List<int> Items;
     }
 }
