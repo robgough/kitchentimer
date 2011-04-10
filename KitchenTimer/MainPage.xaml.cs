@@ -19,11 +19,22 @@ namespace KitchenTimer
         public MainPage()
         {
             InitializeComponent();
+
+            //DataContext = App.ViewModel;
+            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
         private void textNew_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Hello Rob");
+            NavigationService.Navigate(new System.Uri("/MealStartPage.xaml", UriKind.Relative));
+        }
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //if (!App.ViewModel.IsDataLoaded)
+            //{
+            //    App.ViewModel.LoadData();
+            //}
         }
     }
 }

@@ -18,14 +18,11 @@ namespace KitchenTimer.ViewModels
     public class MealViewModel : INotifyPropertyChanged
     {
         private Meal _meal;
-        MealRepository mealRepository;
-        MealItemRepository itemRepository;
 
         public MealViewModel(int MealId)
         {
-            mealRepository = new MealRepository();
-            _meal = mealRepository.GetById(MealId);
-
+            //mealRepository = new MealRepository();
+            _meal = MealRepository.GetMeal(MealId);
             MealItems = new ObservableCollection<MealItemViewModel>();
         }
         
@@ -37,7 +34,7 @@ namespace KitchenTimer.ViewModels
 
         public void LoadData()
         {
-            foreach(var item in itemRepository.GetByIdList(_meal.Items))
+            foreach (var item in MealItemRepository.GetMealListByIdList(_meal.Items))
             {
                 MealItems.Add(new MealItemViewModel(item));
             }
