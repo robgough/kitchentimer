@@ -31,7 +31,7 @@ namespace KitchenTimer.Data
             return mealItem.Id;
         }
 
-        public static MealItem GetMeal(int id)
+        public static MealItem GetMealItem(int id)
         {
             return mealItemList.First(x => x.Id.Equals(id)); //needs error checking
         }

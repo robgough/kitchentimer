@@ -44,5 +44,12 @@ namespace KitchenTimer
                 App.MealViewModel.LoadData();
             }
         }
+
+        private void AddTimerBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new System.Uri(String.Format("/AddItemPage.xaml?MealId={0}", App.MealViewModel.MealID), UriKind.Relative));
+
+        }
+                
     }
 }
