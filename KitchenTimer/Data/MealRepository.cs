@@ -140,5 +140,16 @@ namespace KitchenTimer.Data
             doc.Save(isfStream);
             isfStream.Close();
         }
+
+        public void MealCooked(Meal meal)
+        {
+            doc.Descendants("Meal").Where(x => (int)x.Attribute("Id") == meal.Id).Single().SetAttributeValue("LastCooked", DateTime.Now);
+            isfStream.Close();
+            isfData.DeleteFile("Meals.xml");
+            isfStream = new IsolatedStorageFileStream("Meals.xml", System.IO.FileMode.Create, isfData);
+            doc.Save(isfStream);
+            isfStream.Close();
+        }
+
     }
 }
