@@ -74,12 +74,12 @@ namespace KitchenTimer.Data
 
         //read
               
-        public List<Meal> GetAll()
+        public static List<Meal> GetAll()
         {            
             return mealList;
         }
 
-        public List<Meal> GetFavourites()
+        public static List<Meal> GetFavourites()
         {
             var meals = from m in mealList
                         where m.Favourite
@@ -87,7 +87,7 @@ namespace KitchenTimer.Data
             return meals.ToList();
         }
 
-        public List<Meal> GetMostRecent(int x)
+        public static List<Meal> GetMostRecent(int x)
         {
             var meals = from m in mealList
                         orderby m.LastCooked descending
