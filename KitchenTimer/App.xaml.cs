@@ -18,19 +18,7 @@ namespace KitchenTimer
 {
     public partial class App : Application
     {
-        private static MealViewModel mealViewModel = null;
-
-        public static MealViewModel MealViewModel
-        {
-            get
-            {
-                // Delay creation of the view model until necessary
-                if (mealViewModel == null)
-                    mealViewModel = new MealViewModel();
-
-                return mealViewModel;
-            }
-        }
+        public static MealViewModel MealViewModel;
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.

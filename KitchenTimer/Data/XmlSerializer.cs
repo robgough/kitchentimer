@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Model.DataInterfaces
+namespace KitchenTimer.Data
 {
-    interface IMealRepository
+    class XmlSerializer
     {
     }
 }

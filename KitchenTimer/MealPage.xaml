@@ -23,13 +23,22 @@
 				<Grid>
 					<ScrollViewer Margin="8">
 						<ListBox HorizontalAlignment="Left" VerticalAlignment="Top"
-								 Height="100" Width="440" >
+								 Height="100" Width="440" ItemsSource="{Binding MealItems}" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,17" Width="432">
+                                        <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextLargeStyle}"/>
+                                        <TextBlock Text="{Binding CookingTime}" TextWrapping="Wrap" Margin="12,-6,12,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
                             <TextBlock FontSize="{StaticResource PhoneFontSizeLarge}" TextWrapping="Wrap" Text="timer"
 									   VerticalAlignment="Top" HorizontalAlignment="Left"
 									   Width="440" Height="100"/>
 						</ListBox>
 					</ScrollViewer>
-				</Grid>
+                    <Button Content="Add Timer" Height="72" HorizontalAlignment="Left" Margin="4,461,0,0" Name="AddTimerBtn" VerticalAlignment="Top" Width="450" Click="AddTimerBtn_Click" />
+                </Grid>
 			</controls:PivotItem>
 
  			<!--Pivot item two-->
@@ -43,7 +52,8 @@
                 </Grid>
             </controls:PivotItem>
 		</controls:Pivot>
-	</Grid>
+        <Button Content="Button" Height="72" HorizontalAlignment="Left" Margin="378,700,0,0" Name="button2" VerticalAlignment="Top" Width="160" />
+    </Grid>
 
     <!--Sample code showing usage of ApplicationBar-->
     <phone:PhoneApplicationPage.ApplicationBar>

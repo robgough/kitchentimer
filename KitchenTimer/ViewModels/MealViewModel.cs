@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using KitchenTimer.Model;
+using KitchenTimer.Data;
 
 namespace KitchenTimer.ViewModels
 {
@@ -18,14 +19,10 @@ namespace KitchenTimer.ViewModels
     {
         private Meal _meal;
 
-        public MealViewModel()
+        public MealViewModel(int MealId)
         {
-            _meal = new Meal();
-            //_meal.Id = 1;
-            //_meal.Favourite = true;
-            //_meal.LastCooked = DateTime.Now.AddDays(-7);
-            //_meal.Name = "Spaghetti Bolegnaise";
-
+            //mealRepository = new MealRepository();
+            _meal = MealRepository.GetMeal(MealId);
             MealItems = new ObservableCollection<MealItemViewModel>();
         }
         
@@ -37,26 +34,9 @@ namespace KitchenTimer.ViewModels
 
         public void LoadData()
         {
-            // do your magic here!
-            // get meal
-            // foreach mealitem id in meal.mealitems
-            // grab and populate MealItems
-            //_meal = new Meal();
-            _meal.Id = 1;
-            _meal.Favourite = true;
-            _meal.LastCooked = DateTime.Now.AddDays(-7);
-            _meal.Name = "Spaghetti Bolegnaise";
-
-            for (int i = 0; i < 5; i++)
+            foreach (var item in MealItemRepository.GetMealListByIdList(_meal.Items))
             {
-                MealItemViewModel mealItem = new MealItemViewModel();
-                mealItem.Id = i;
-                mealItem.Name = String.Format("Test {0}", i);
-                mealItem.Notes = "lorem ipsum, here are some notes. Ooh yah.";
-                mealItem.Saved = false;
-                mealItem.StandingTime = TimeSpan.FromMinutes(1);
-                mealItem.CookingTime = TimeSpan.FromMinutes(12);
-                MealItems.Add(mealItem);
+                MealItems.Add(new MealItemViewModel(item));
             }
 
             IsDataLoaded = true;

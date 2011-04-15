@@ -5,94 +5,96 @@ using System.Xml.Linq;
 using System.IO.IsolatedStorage;
 using System.Collections.Generic;
 using KitchenTimer.Model;
+using System.IO;
 
 
 namespace KitchenTimer.Data
 {
-    public class MealRepository
+    public static class MealRepository
     {
-        IsolatedStorageFile isfData; 
-        XDocument doc;
-        IsolatedStorageFileStream isfStream;
+        //static IsolatedStorageFile isolatedStorageFile;
+        //static XDocument doc;
+        //static IsolatedStorageFileStream isolatedStorageStream;
 
-        public MealRepository()
+        static List<Meal> mealList = new List<Meal>();
+        static bool isDataLoaded;
+
+        public static void Load()
         {
-            isfData = IsolatedStorageFile.GetUserStoreForApplication();
-            if(isfData.FileExists("Meals.xml"))
-            {
-                isfStream = new IsolatedStorageFileStream("Meals.xml", System.IO.FileMode.Open, isfData);
-                doc = XDocument.Load(isfStream);
-                isfStream.Close();
-            }
-            else
-            {
-                doc = XDocument.Load("Meals.xml");
-                isfStream = new IsolatedStorageFileStream("Meals.xml", System.IO.FileMode.CreateNew, isfData);
-                doc.Save(isfStream);
-                isfStream.Close();
-            }
+            if (!isDataLoaded)
+                ReadFromIsolatedStorage();
         }
 
-        public Meal GetById(int id)
+        public static void Save()
         {
-            var meal = from m in doc.Descendants("Meal")
-                       where (string)m.Attribute("Id") == id.ToString()
-                       select new Meal { Id = (int)m.Attribute("Id"),
-                       Name = (string)m.Attribute("Name"),
-                       Favourite = (bool)m.Attribute("Favourite"),
-                     LastCooked = (DateTime)m.Attribute("LastCooked"),
-                     Items = (List<int>)m.Descendants("MealItem"),
-                      Notes = (string)m.Attribute("Notes")
-                       };
-            return meal.FirstOrDefault();
-
+            WriteToIsolatedStorage();
         }
 
-        public List<Meal> GetAll()
+        private static void ReadFromIsolatedStorage()
         {
-            var meals = from m in doc.Descendants("Meal")
-                       select new Meal
-                       {
-                           Id = (int)m.Attribute("Id"),
-                           Name = (string)m.Attribute("Name"),
-                           Favourite = (bool)m.Attribute("Favourite"),
-                           LastCooked = (DateTime)m.Attribute("LastCooked"),
-                           Items = (List<int>)m.Descendants("MealItem"),
-                           Notes = (string)m.Attribute("Notes")
-                       };
+            //isolatedStorageFile = IsolatedStorageFile.GetUserStoreForApplication();
+            //isolatedStorageStream = new IsolatedStorageFileStream("meals.xml", FileMode.OpenOrCreate, isolatedStorageFile);
+
+            //if (isolatedStorageStream.Length > 0) // presumably 0 if empty?
+            //{
+
+            //}
+            isDataLoaded = true;
+        }
+
+        private static void WriteToIsolatedStorage()
+        {
+        }
+
+        #region new static version
+        public static int AddMeal(Meal meal)
+        {
+            if (meal.Id < 1) meal.Id = GetNextID();
+
+            mealList.Add(meal);
+
+            return meal.Id;
+        }
+        public static Meal GetMeal(int id)
+        {
+            return mealList.FirstOrDefault(x => x.Id.Equals(id)); //needs error checking
+        }
+        // helpers
+        private static int GetNextID()
+        {
+            int output = 0;
+            try
+            {
+                output = mealList.Max(x => x.Id);
+            }
+            catch { }
+            return output + 1;
+        }
+        #endregion
+
+        //read
+              
+        public static List<Meal> GetAll()
+        {            
+            return mealList;
+        }
+
+        public static List<Meal> GetFavourites()
+        {
+            var meals = from m in mealList
+                        where m.Favourite
+                        select m;
             return meals.ToList();
         }
 
-        public List<Meal> GetFavourites()
+        public static List<Meal> GetMostRecent(int x)
         {
-            var meals = from m in doc.Descendants("Meal")
-                        where (bool)m.Attribute("Favourite")
-                        select new Meal
-                        {
-                            Id = (int)m.Attribute("Id"),
-                            Name = (string)m.Attribute("Name"),
-                            Favourite = (bool)m.Attribute("Favourite"),
-                            LastCooked = (DateTime)m.Attribute("LastCooked"),
-                            Items = (List<int>)m.Descendants("MealItem"),
-                            Notes = (string)m.Attribute("Notes")
-                        };
-            return meals.ToList();
-        }
-
-        public List<Meal> GetMostRecent(int x)
-        {
-            var meals = from m in doc.Descendants("Meal")
-                        orderby (DateTime)m.Attribute("LastCooked") descending
-                        select new Meal
-                        {
-                            Id = (int)m.Attribute("Id"),
-                            Name = (string)m.Attribute("Name"),
-                            Favourite = (bool)m.Attribute("Favourite"),
-                            LastCooked = (DateTime)m.Attribute("LastCooked"),
-                            Items = (List<int>)m.Descendants("MealItem"),
-                            Notes = (string)m.Attribute("Notes")
-                        };
+            var meals = from m in mealList
+                        orderby m.LastCooked descending
+                        select m;
             return meals.Take(x).ToList();
         }
+        
     }
 }
+
